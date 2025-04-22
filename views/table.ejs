@@ -1,0 +1,23 @@
+  <table>
+ <thead>
+    <tr>
+      <% header.forEach(col => { %>
+        <th><%= col %></th>
+      <% }) %>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% products.forEach(product => { %>
+      <tr>
+        <% header.forEach(col => { %>
+          <td><%= product[col] %></td>
+        <% }) %>
+        <td>
+          <a href="/<%= basePath %>/<%= product[idField] %>/edit">Edit</a>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

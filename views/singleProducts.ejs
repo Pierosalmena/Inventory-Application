@@ -1,0 +1,45 @@
+<% /* singleProducts.ejs – edit form for one product */ %>
+
+<% const product = products[0]; %>
+
+<h1>Edit product#<%= product[idField] %></h1>
+
+<form action="/<%= basePath %>/<%= product[idField] %>/edit" method="POST">
+  <table>
+    <thead>
+      <tr>
+        <% header.forEach(col => { %>
+          <th><%= col %></th>
+        <% }) %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <% header.forEach(col => { %>
+          <% if (col === idField) { %>
+            <!-- primary key: readonly/hidden -->
+            <td>
+              <input type="hidden"
+                     name="<%= col %>"
+                     value="<%= product[col] %>">
+              <%= product[col] %>
+            </td>
+          <% } else { %>
+            <td>
+              <input
+                type="<%= typeof product[col] === 'number' ? 'number' : 'text' %>"
+                name="<%= col %>"
+                value="<%= product[col] %>"
+                step="0.01">
+            </td>
+          <% } %>
+        <% }) %>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+  <button type="submit">Save</button>
+  <a href="/<%= basePath %>">Cancel</a>
+</form>

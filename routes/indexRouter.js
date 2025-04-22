@@ -1,7 +1,7 @@
-const {Router } = require("express");
+// const { Router } = require("express");
 
-const indexRouter = Router();
+// const indexRouter = Router();
 
-indexRouter.get("/", )
+// indexRouter.get("/", displayProducts)
 
-module.exports = indexRouter
+// module.exports = indexRouter
