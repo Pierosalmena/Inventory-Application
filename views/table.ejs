@@ -4,7 +4,8 @@
       <% header.forEach(col => { %>
         <th><%= col %></th>
       <% }) %>
-      <th>Actions</th>
+      <th>Edit</th>
+      <th>Delete</th>
     </tr>
   </thead>
 
@@ -17,7 +18,14 @@
         <td>
           <a href="/<%= basePath %>/<%= product[idField] %>/edit">Edit</a>
         </td>
+        <td>
+            <form action="/products/<%= product.article_id %>/delete" method="POST" style="display:inline;">
+                <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+              </form>
+        </td>
       </tr>
     <% }) %>
   </tbody>
 </table>
+
+<a href="/<%= basePath %>/add">Add a row</a>

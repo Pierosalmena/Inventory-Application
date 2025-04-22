@@ -1,0 +1,38 @@
+<% /* singleProducts.ejs – add form for a new product */ %>
+
+<form action="/<%= basePath %>/add" method="POST">
+  <table>
+    <thead>
+      <tr>
+        <% header.forEach(col => { %>
+          <th><%= col %></th>
+        <% }) %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <% header.forEach(col => { %>
+          <% if (col === idField) { %>
+            <!-- primary key: usually auto-generated -->
+            <td>
+              <input type="hidden" name="<%= col %>" value="">
+            </td>
+          <% } else { %>
+            <td>
+              <input
+                type="text"
+                name="<%= col %>"
+                value=""
+                step="0.01">
+            </td>
+          <% } %>
+        <% }) %>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+  <button type="submit">Save</button>
+  <a href="/<%= basePath %>">Cancel</a>
+</form>

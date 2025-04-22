@@ -1,7 +1,15 @@
 const pool = require("./pool");
 
 async function getAllProducts() {
-    const {rows} = await pool.query("SELECT * FROM products");
+    const {rows} = await pool.query(`SELECT
+  products.article_id,
+  products.product_name,
+  products.price,
+  brand.name AS brand_name,
+  category.name AS category_name
+FROM products
+LEFT JOIN brand    ON products.brand_id = brand.brand_id
+LEFT JOIN category ON products.category_id = category.category_id`);
     return rows;
 }
 
@@ -11,6 +19,11 @@ async function insertNewProduct(product) {
 // async function deleteProduct(product) {
 //     await pool.query("DELETE FROM products")
 // }
+
+async function viewProducts() {
+    const {rows} = await pool.query("SELECT * FROM products")
+    return rows;
+}
 
 async function viewBrands(){
     const {rows} = await pool.query("SELECT * FROM brand");
@@ -49,5 +62,25 @@ async function updateArticle(article_id, product_name, price, brand_id, category
     );
   }
 
+  async function addArticle(product_name, price, brand_id, category_id) {
+    await pool.query(
+      `INSERT INTO products(product_name,
+           price,
+           brand_id,
+           category_id)
+       VALUES ($1,
+           $2,
+           $3,
+           $4)`,
+      [product_name, price, brand_id, category_id]
+    );
+  }
 
-module.exports = {getAllProducts, insertNewProduct, viewBrands, viewStock, viewCategory, viewBrand, viewSingleProduct, updateArticle}
+  async function deleteRow(article_id) {
+    await pool.query(
+      'DELETE FROM products WHERE article_id = $1',
+      [article_id]
+    );
+  }
+
+module.exports = {getAllProducts, insertNewProduct, viewBrands, viewStock, viewCategory, viewBrand, viewSingleProduct, updateArticle, deleteRow, addArticle, viewProducts}
